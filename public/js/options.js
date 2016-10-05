@@ -9,7 +9,50 @@
  * then tells the trip module to add the attraction.
  */
 
+
+
 $(function(){
+
+  // var getHotels = $.get('/api/hotels');
+  // var getRestaurants = $.get('/api/restaurants');
+  // var getActivities = $.get('/api/activities');
+
+  // Promise.all([getHotels, getRestaurants, getActivities])
+  // .then(function(returnValues) {
+  //   var hotels = returnValues[0]
+  //   var restaurants = returnValues[1]
+  //   var activities = returnValues[2]
+  //   hotels.forEach(makeOption, $hotelSelect);
+  //   restaurants.forEach(makeOption, $restaurantSelect);
+  //   activities.forEach(makeOption, $activitySelect);
+  // })
+  // .catch(next);
+
+  $.get('/api/hotels')
+  .then(function (hotels) {
+    hotels.forEach(makeOption, $hotelSelect);
+  })
+  .catch( console.error.bind(console) );
+
+  $.get('/api/restaurants')
+  .then(function (restaurants) {
+    restaurants.forEach(makeOption, $restaurantSelect);
+  })
+  .catch( console.error.bind(console) );
+
+  $.get('/api/activities')
+  .then(function (activities) {
+    activities.forEach(makeOption, $activitySelect);
+  })
+  .catch( console.error.bind(console) );
+
+// 
+//
+//   $.get('/api/activities')
+// .then(function (activities) {
+// })
+// .catch( console.error.bind(console) );
+
 
   // jQuery selects
   var $optionsPanel = $('#options-panel');
@@ -18,9 +61,6 @@ $(function(){
   var $activitySelect = $optionsPanel.find('#activity-choices');
 
   // make all the option tags (second arg of `forEach` is a `this` binding)
-  hotels.forEach(makeOption, $hotelSelect);
-  restaurants.forEach(makeOption, $restaurantSelect);
-  activities.forEach(makeOption, $activitySelect);
 
   function makeOption (databaseAttraction) {
     var $option = $('<option></option>') // makes a new option tag
