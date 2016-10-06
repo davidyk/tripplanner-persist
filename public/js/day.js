@@ -34,6 +34,7 @@ var dayModule = (function () {
     // for days based on existing data
     utilsModule.merge(data, this);
     if (this.hotel) this.hotel = attractionsModule.getEnhanced(this.hotel);
+
     this.restaurants = this.restaurants.map(attractionsModule.getEnhanced);
     this.activities = this.activities.map(attractionsModule.getEnhanced);
     // remainder of constructor

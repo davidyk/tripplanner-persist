@@ -20,7 +20,7 @@ router.post('/api/days', function(req, res, next) {
 // -Get a list of all the days
 router.get('/api/days', function(req, res, next) {
   console.log("Get all days");
-
+  res.send("Get all days");
 });
 
 
