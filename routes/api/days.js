@@ -4,14 +4,17 @@ var db = require('../../models/');
 var Hotel = require('../../models/hotel');
 var Restaurant = require('../../models/restaurant');
 var Activity = require('../../models/activity');
-
+var Day = require('../../models/day')
 
 
 
 //                *** DAYS ***
 // CREATE - make a new day
-router.post('/api/days', function(req, res, next) {
-
+router.post('/api/days/:id', function(req, res, next) {
+  Day.create({
+    number: req.params.id
+  });
+  res.sendStatus(200);
 });
 
 
@@ -19,8 +22,11 @@ router.post('/api/days', function(req, res, next) {
 // READ
 // -Get a list of all the days
 router.get('/api/days', function(req, res, next) {
-  console.log("Get all days");
-  res.send("Get all days");
+  Day.findAll({ include: [{model: Hotel}, {model: Activity}, {model: Restaurant}]})
+  .then(function(days) {
+    res.send(days);
+  })
+  .catch(next);
 });
 
 
@@ -28,10 +34,31 @@ router.get('/api/days', function(req, res, next) {
 
 // -Get a specific day
 router.get('/api/days/:id', function(req, res, next) {
+  Day.findOne({
+    where: {
+      number: req.params.id
+    }
+  })
+  .then(function(day){
+    console.log("day", day);
+    res.send(day)
+  })
+  .catch(next)
 });
 
 // DELETE - a specific day
 router.delete('/api/days/:id', function(req, res, next) {
+  Day.destroy({
+      where: {
+        number: req.params.id
+      }
+  })
+  .then(function(day){
+    console.log("day", day)
+    res.sendStatus(200);
+  })
+
+
 });
 
 

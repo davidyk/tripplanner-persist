@@ -54,6 +54,7 @@ var tripModule = (function () {
       currentDay = newDay;
     }
     switchTo(newDay);
+    console.log("days ***", days);
   }
 
   function deleteCurrentDay () {
@@ -77,6 +78,14 @@ var tripModule = (function () {
 
     load: function () {
       $(addDay);
+      var getDays = $.get("/api/days")
+
+      //AJAX request to get all the days from backend
+      //We get back an array of days
+      //sequelize eager loading include Day.findbyID  include activities and restaurants
+      //For each on the days array - daysModule.create a Day, which returns day instance
+      //days.push (dayModule.create(day))
+
     },
 
     switchTo: switchTo,
